@@ -1,0 +1,25 @@
+name: Revisar proyecto Zepp OS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar entorno
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Revisar ZIP
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          mkdir proyecto
+          unzip -o *.zip -d proyecto
+          echo "ARCHIVOS ENCONTRADOS:"
+          find proyecto -maxdepth 5 -type f
